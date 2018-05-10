@@ -14,7 +14,6 @@ class BinarySearchTree {
       this._insert(this.root, nodeToInsert);
     }
   }
-
   _insert(rootNode, nodeToInsert) {
     if (nodeToInsert.value < rootNode.value) {
       if (!rootNode.left) {
@@ -28,8 +27,6 @@ class BinarySearchTree {
       this._insert(rootNode.right, nodeToInsert);
     }
   }
-
-
   // Time : O(H) -> O(lg n)
   // Space : O(H) -> O(lg n)
   find(value) {
@@ -38,17 +35,59 @@ class BinarySearchTree {
     }
     return this._find(this.root, value);
   }
-
-  _find(rootNode, value) {
-    if (!rootNode) {
+  _find(root, value) {
+    if (!root) {
       return null;
-    } else if (rootNode.value === value) {
-      return rootNode;
-    } else if (rootNode.value < value) {
-      return this._find(rootNode.right, value);
+    } else if (root.value === value) {
+      return root;
+    } else if (root.value < value) {
+      return this._find(root.right, value);
     }
-    return this._find(rootNode.left, value);
+    return this._find(root.left, value);
+  }
+  findMinRoot(root) {
+    // Base Case for Search
+    if (root.left === null) return root;
+    // Always go Left 
+    return this.findMinNode(root.left);
+  }
+  remove(value) {
+    if (!this.root) return null;
+    return this._remove(this.root, value);
+  }
+  _remove(root, value) { /* eslint-disable-line */
+    // Go Left
+    if (value < root.value) {
+      root.left = this._remove(root.left, value);
+      return root;
+    
+    // Go Right
+    } else if (value > root.value) {
+      root.right = this._remove(root.right, value);
+      return root;
+    }
+    // To Be Removed Node has no Children
+    if (root.left === null && root.right === null) {
+      // Remove it
+        root = null; /* eslint-disable-line */
+      return root;
+    }
+    // To Be Removed Node has 1 Children
+    // Is Child on Right or Left?
+    if (root.left === null) {
+        root = root.right; /* eslint-disable-line */
+      return root;
+    } else if (root.right === null) {
+        root = root.left; /* eslint-disable-line */
+      return root;
+    }
+    
+    // To Be Removed Node has 2 Children
+    const lowestValue = this.findMinRoot(root.left);
+    root.value = lowestValue.value;
+ 
+    root.left = this._remove(root.left, lowestValue.value);
+    return root;
   }
 }
-
 export default BinarySearchTree;
