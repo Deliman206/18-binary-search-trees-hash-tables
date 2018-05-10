@@ -1,6 +1,7 @@
 'use strict';
 
 import Queue from 'queue-fifo';
+import Stack from 'stack-lifo';
 
 export default class KAryTree {
   constructor(root = null) {
@@ -42,19 +43,40 @@ export default class KAryTree {
 
     let currentNode = null;
     let solution = ''; /* eslint-disable-line */
-    let solutions = []; /* eslint-disable-line */
 
     while (!queue.isEmpty()) {
       currentNode = queue.dequeue();
 
       if (command === 'string') solution += `\n${currentNode.value}`;
-      if (command === 'array') solutions.push(currentNode.value);
       for (let i = 0; i < currentNode.children.length; i++) {
         queue.enqueue(currentNode.children[i]);
       }
     }
     if (command === 'string') return solution;
-    if (command === 'array') return solutions;
+  }
+  depthFirstTraversal(command) {
+    if (!this.root) {
+      return null;
+    }
+    if (command === 'array') return this._depthFirstTraversal(this.root);
+    return undefined;
+  }
+  _depthFirstTraversal(root) { /* eslint-disable-line */
+    const stack = new Stack();
+    stack.push(root);
+
+    let currentNode = null;
+    const solution = [];
+
+    while (!stack.isEmpty()) {
+      currentNode = stack.pop();
+      solution.push(currentNode.value);
+
+      for (let i = 0; i < currentNode.children.length; i++) {
+        stack.push(currentNode.children[i]);
+      }
+    }
+    return solution;
   }
   find(value) {
     return this.breadthSearchTraversal(value);
@@ -63,6 +85,6 @@ export default class KAryTree {
     return this.breadthPrintTraversal(command);
   }
   toArray(command) {
-    return this.breadthPrintTraversal(command);
+    return this.depthFirstTraversal(command);
   }
 }

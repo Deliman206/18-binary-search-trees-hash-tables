@@ -5,8 +5,8 @@ class BinarySearchTree {
     this.root = root;
   }
 
-  // Time : O(H) -> O(lg n)
-  // Space : O(H) -> O(lg n)
+  // Sean- Time : O(H) -> O(lg n)
+  // Sean- Space : O(H) -> O(lg n)
   insert(nodeToInsert) {
     if (!this.root) {
       this.root = nodeToInsert;
@@ -27,8 +27,8 @@ class BinarySearchTree {
       this._insert(rootNode.right, nodeToInsert);
     }
   }
-  // Time : O(H) -> O(lg n)
-  // Space : O(H) -> O(lg n)
+  // Sean- Time : O(H) -> O(lg n)
+  // Sean- Space : O(H) -> O(lg n)
   find(value) {
     if (!this.root) {
       return null;
@@ -46,9 +46,9 @@ class BinarySearchTree {
     return this._find(root.left, value);
   }
   findMinRoot(root) {
-    // Base Case for Search
+    // Sean- Base Case for Search
     if (root.left === null) return root;
-    // Always go Left 
+    // Sean- Always go Left 
     return this.findMinNode(root.left);
   }
   remove(value) {
@@ -56,24 +56,24 @@ class BinarySearchTree {
     return this._remove(this.root, value);
   }
   _remove(root, value) { /* eslint-disable-line */
-    // Go Left
+    // Sean- Go Left
     if (value < root.value) {
       root.left = this._remove(root.left, value);
       return root;
     
-    // Go Right
+    // Sean- Go Right
     } else if (value > root.value) {
       root.right = this._remove(root.right, value);
       return root;
     }
-    // To Be Removed Node has no Children
+    // Sean- To Be Removed Node has no Children
     if (root.left === null && root.right === null) {
-      // Remove it
+      // Sean- Remove it
         root = null; /* eslint-disable-line */
       return root;
     }
-    // To Be Removed Node has 1 Children
-    // Is Child on Right or Left?
+    // Sean- To Be Removed Node has 1 Children
+    // Sean- Is Child on Right or Left?
     if (root.left === null) {
         root = root.right; /* eslint-disable-line */
       return root;
@@ -82,7 +82,7 @@ class BinarySearchTree {
       return root;
     }
     
-    // To Be Removed Node has 2 Children
+    // Sean- To Be Removed Node has 2 Children
     const lowestValue = this.findMinRoot(root.left);
     root.value = lowestValue.value;
  
@@ -91,3 +91,4 @@ class BinarySearchTree {
   }
 }
 export default BinarySearchTree;
+

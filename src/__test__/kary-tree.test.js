@@ -53,7 +53,7 @@ describe('test K-ary-tree', () => {
     
     const kAryTree = new KAryTree(one);
     
-    expect(kAryTree.toArray('array')).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    expect(kAryTree.toArray('array')).toEqual([1, 4, 3, 7, 6, 8, 5, 2]);
   });
 });
 
