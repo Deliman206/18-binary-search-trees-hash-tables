@@ -24,9 +24,7 @@ describe('binary-search-tree.js', () => {
     six.right = seven;
     seven.left = eight;
     seven.right = nine;
-    const x = testTree.find(9);
-    console.log(x);
-    // expect(x).toBe(7, 9);
+    expect(testTree.find(9)).toBeTruthy();
   });
 });
 
